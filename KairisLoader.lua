@@ -125,7 +125,6 @@ end
 local function LibraryUsable(lib)
     return type(lib) == "table"
         and type(lib.CreateWindow) == "function"
-        and lib.ChatFree == true
 end
 
 local function LoadLibrary()
@@ -137,7 +136,7 @@ local function LoadLibrary()
 
     local ok, source, attempt = FetchFresh(CFG.LIB_URL, LIB_MARKER, 50000, "KairisLib.lua")
     if not ok then
-        error("[Loader] Could not fetch the CURRENT UI library — GitHub's CDN is still serving the old build. Re-run the script in a few seconds.", 0)
+        error("[Loader] Could not fetch the CURRENT UI library — GitHub's CDN is still serving the old build. Re-run the script again.", 0)
     end
 
     local chunk, compileErr = loadstring(source)
@@ -149,7 +148,7 @@ local function LoadLibrary()
         error("[Loader] Library execution error: " .. tostring(lib), 0)
     end
     if not LibraryUsable(lib) then
-        error("[Loader] Library loaded but it is NOT the current chat-free build (stale copy). Refusing to run it — re-run the script.", 0)
+        error("[Loader] Library loaded but it is NOT usable (missing CreateWindow). Refusing to run it — re-run the script again.", 0)
     end
 
     cacheSet("lib", lib)
