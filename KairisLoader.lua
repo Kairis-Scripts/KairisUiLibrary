@@ -42,7 +42,7 @@ end
 -- ══════════════════════════════════════════════════════════════════════════════
 -- CACHE + STALE-PROTECTION
 -- ══════════════════════════════════════════════════════════════════════════════
-local LIB_MARKER  = "KairisFree"
+local LIB_MARKER  = nil
 local CACHE_TTL   = 300
 
 local KAIRIS_CACHE = _G.KairisLoaderCache or {}
@@ -86,7 +86,7 @@ end
 local function FetchApiRaw(apiPath)
     if type(request) ~= "function" then return false, nil end
     local ok, req = pcall(request, {
-        Url = "https://api.github.com/repos/YOUR_USERNAME/YOUR_REPO/contents/" .. apiPath,
+        Url = "https://api.github.com/repos/Kairis-Scripts/KairisUiLibrary/contents/" .. apiPath,
         Method = "GET",
         Headers = {
             ["Accept"]     = "application/vnd.github.raw+json",
